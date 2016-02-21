@@ -12,6 +12,7 @@ echo 'Configuring Functions'
  }
   ME=`whoami`
  echo 'Done Configurating Functions'
- echo 'Starting the Big Guy...'
  java -version
-start () { cd $DIR &&  }
+start () { echo 'Starting the server...'&& cd $DIR && java -Xmx${MAXHEAP}M -Xms${MINHEAP}M -XX:+UseConcMarkSweepGC \
+ -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=$CPU_COUNT -XX:+AggressiveOpts \
+ -jar $SERVICE $OPTIONS }
