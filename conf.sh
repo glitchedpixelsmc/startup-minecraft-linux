@@ -1,4 +1,5 @@
-INVOCATION="java -Xmx${MAXHEAP}M -Xms${MINHEAP}M -XX:+UseConcMarkSweepGC \
- -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=$CPU_COUNT -XX:+AggressiveOpts \
- -jar $SERVICE $OPTIONS"
-#FUNCTIONS
+MAXHEAP=1024
+MINHEAP=1024
+CPU_COUNT=1
+SERVICE='minecraft_server.jar'
+OPTIONS='nogui server'
