@@ -33,5 +33,7 @@ start () { echo 'Starting the server...'&& cd $DIR && java -Xmx${MAXHEAP}M -Xms$
  wget https://launchermeta.mojang.com/mc/game/version_manifest.json -O json.txt
  echo 'Reading Json data...'
  if [[$UPDATE = 'snapshot']]
+ then
  cat json.txt | jq '.latest.snapshot'
+ fi
  }
