@@ -16,3 +16,9 @@ echo 'Configuring Functions'
 start () { echo 'Starting the server...'&& cd $DIR && java -Xmx${MAXHEAP}M -Xms${MINHEAP}M -XX:+UseConcMarkSweepGC \
  -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=$CPU_COUNT -XX:+AggressiveOpts \
  -jar $SERVICE $OPTIONS }
+ update () { echo 'fetching version data...'
+ wget https://launchermeta.mojang.com/mc/game/version_manifest.json -O json.txt
+ echo 'Reading Json data...'
+ if [[$UPDATE]]
+ cat json.txt | jq '.location.city'
+ }
