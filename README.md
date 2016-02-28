@@ -10,3 +10,20 @@ sudo apt-get upgrade
 sudo apt-get install screen
 ```
 2. Download
+```bash
+wget https://github.com/glitchedpixelsmc/startup-minecraft-linux/blob/master/start.sh
+```
+3. Installation
+```bash
+sudo chmod a+x start.sh
+```
+4. Done!
+Do this to run
+```bash
+./start.sh
+```
+Any Issues, please use the Issues page on github pages
+This Script comes with ABSOLUTLY NO WARRENTY. Please Read license before use.
+LICANSE:Creative Commons Attribution-NonCommercial 4.0 International License
+Thanks! - GlitchedPixelsYt, Kyler Chin, Software Developer.
+Best Wishes, - The GlitchedPixelsYT team :]
