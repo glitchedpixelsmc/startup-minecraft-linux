@@ -11,7 +11,7 @@ sudo apt-get install screen
 ```
 2. Download
 ```bash
-wget https://github.com/glitchedpixelsmc/startup-minecraft-linux/blob/master/start.sh
+https://raw.githubusercontent.com/glitchedpixelsmc/startup-minecraft-linux/master/start.sh
 ```
 3. Installation
 ```bash
