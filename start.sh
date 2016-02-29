@@ -64,6 +64,37 @@ fi
  -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=$CPU_COUNT -XX:+AggressiveOpts \
  -jar $SERVICE $OPTIONS
  }
+command() {
+   command="$1";
+   if pgrep -u $USERNAME -f $SERVICE > /dev/null
+   then
+     pre_log_len=`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`
+     echo "$SERVICE is running... executing command"
+     as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+     sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
+     # print output
+     tail -n $[`wc -l "$MCPATH/logs/latest.log" | awk '{print $1}'`-$pre_log_len] "$MCPATH/logs/latest.log"
+   fi
+ }
+stop() {
+   if pgrep -u $USERNAME -f $SERVICE > /dev/null
+   then
+     echo "Stopping $SERVICE"
+     as_user "screen -p 0 -S minecraft -X eval 'stuff \"say SERVER SHUTTING DOWN IN 10 SECONDS. Saving map...\"\015'"
+     as_user "screen -p 0 -S minecraft -X eval 'stuff \"save-all\"\015'"
+     sleep 10
+     as_user "screen -p 0 -S minecraft -X eval 'stuff \"stop\"\015'"
+     sleep 7
+   else
+     echo "$SERVICE was not running."
+   fi
+   if pgrep -u $USERNAME -f $SERVICE > /dev/null
+   then
+     echo "Error! $SERVICE could not be stopped."
+   else
+     echo "$SERVICE is stopped."
+   fi
+ } 
 startloop () { 
 echo 'Starting the server...'
  while [ condition ]
