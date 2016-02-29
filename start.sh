@@ -123,7 +123,11 @@ cd $DIR
 core
 fi
 }
- update () { echo 'fetching version data...'
+ update () { 
+ if pgrep -u $USERNAME -f $SERVICE > /dev/null ; then
+    echo "$SERVICE is running! Will not start update."
+    else
+   echo 'fetching version data...'
  wget https://launchermeta.mojang.com/mc/game/version_manifest.json -O json.txt
  $a='http://s3.amazonaws.com/Minecraft.Download/versions/'
  $b'/minecraft_server.'
@@ -134,6 +138,7 @@ fi
  version=$(cat json.txt | jq '.latest.snapshot')
  if [[$currentversion = $version]]
  then
+ You are already running the latest version of $SERVICE.
  else
  wget $a$version$b$version$c -O $SERVICE
  echo 'currentversion='$version > 'currentversion.sh'
@@ -144,9 +149,11 @@ fi
  version=$(cat json.txt | jq '.latest.release')
  if [[$currentversion = $version]]
  then
+ You are already running the latest version of $SERVICE.
  else
  wget $a$version$b$version$c -O $SERVICE
  echo 'currentversion='$version > 'currentversion.sh'
+ fi
  fi
  fi
  }
